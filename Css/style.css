@@ -439,3 +439,18 @@ body.dark .cart-box{
   background:#f9ba60;
   color:#000;
 }
+.qty{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:6px;
+}
+
+.qty button{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  border:1px solid #f9ba60;
+  background:none;
+  cursor:pointer;
+}

@@ -34,6 +34,22 @@ const menuData = [
   },
   {
     id: 5,
+  name: "Chicken Shawarma",
+  category: "shawarma",
+  price: 9,
+  desc: "Tender marinated chicken shawarma wrapped in fresh bread with garlic sauce, pickles, and crispy fries.",
+  img: "Images/chicken-shawarma.jpeg"
+  },
+  {
+    id: 6,
+  name: "Beef Shawarma",
+  category: "shawarma",
+  price: 11,
+  desc: "Slow-roasted beef shawarma served with tahini sauce, fresh vegetables, and pickles in warm bread.",
+  img: "Images/beef-shawarma.jpg"
+  },
+  {
+    id: 7,
   name: "Taleb Special Pizza",
   category: "pizza",
   desc: "Oven-baked pizza topped with rich tomato sauce, mozzarella cheese, pepperoni, fresh mushrooms, olives, and a touch of oregano.",
@@ -45,7 +61,7 @@ const menuData = [
   }
   },
   {
-    id: 6,
+    id: 8,
   name: "Chicken Pizza",
   category: "pizza",
   desc: "Grilled chicken pieces with mozzarella cheese, mushrooms, olives, and creamy sauce on a crispy crust.",
@@ -57,7 +73,7 @@ const menuData = [
   }
   },
   {
-    id:7,
+    id:9,
     name:"Pizza Margherita",
     category:"pizza",
     desc:"Italian pizza with basil",
@@ -69,7 +85,7 @@ const menuData = [
   }
   },
   {
-    id:8,
+    id:10,
     name:"Caesar Salad",
     category:"starters",
     price:8,
@@ -77,7 +93,7 @@ const menuData = [
     img:"Images/salad.jpg"
   },
   {
-    id:9,
+    id:11,
     name:"Chocolate Cake",
     category:"desserts",
     price:6,
@@ -85,7 +101,7 @@ const menuData = [
     img:"Images/cake.jpg"
   },
   {
-    id:10,
+    id:12,
     name:"Fresh Juice",
     category:"drinks",
     price:5,
@@ -165,12 +181,6 @@ $(document).on("click", ".filter", function(){
   }
 });
 
-/* ===== ADD TO CART ===== */
-$(document).on("click", ".addCart", function(){
-  cartCount++;
-  $("#cartCount").text(cartCount);
-});
-
 // ===== DARK MODE WITH LOCALSTORAGE =====
 const themeBtn = document.getElementById("themeToggle");
 
@@ -190,35 +200,59 @@ themeBtn.addEventListener("click", () => {
     themeBtn.textContent = "🌙";
   }
 });
-// ===== CART LOGIC =====
+
+
+// ================= CART DATA =================
 let cart = [];
 
+// ================= ADD TO CART =================
 $(document).on("click",".addCart",function(){
+
   const id = $(this).data("id");
   const item = menuData.find(p => p.id === id);
 
-  let cartItem = {...item};
+  let size = null;
+  let price = 0;
 
   if(item.sizes){
-    const size = $(this).closest(".menu-card")
+    size = $(this).closest(".menu-card")
       .find(".sizes .active")
       .data("size");
 
-    cartItem.size = size;
-    cartItem.price = item.sizes[size];
+    price = Number(item.sizes[size]);
+  }else{
+    price = Number(item.price);
   }
 
-  cart.push(cartItem);
+  if(isNaN(price)) return;
+
+  const existing = cart.find(i => i.id === id && i.size === size);
+
+  if(existing){
+    existing.qty++;
+  }else{
+    cart.push({
+      id:item.id,
+      name:item.name,
+      img:item.img,
+      size:size,
+      price:price,
+      qty:1
+    });
+  }
+
   updateCart();
 });
 
-
+// ================= UPDATE CART =================
 function updateCart(){
   $("#cartItems").html("");
   let total = 0;
+  let count = 0;
 
   cart.forEach((item,index)=>{
-    total += item.price;
+    total += item.price * item.qty;
+    count += item.qty;
 
     $("#cartItems").append(`
       <div class="cart-item">
@@ -226,48 +260,79 @@ function updateCart(){
         <div class="cart-info">
           <h4>${item.name}</h4>
           <span>${item.size ? item.size : ""}</span>
+
+          <div class="qty">
+            <button onclick="changeQty(${index},-1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${index},1)">+</button>
+          </div>
         </div>
-        <div class="cart-price">$${item.price}</div>
+
+        <div class="cart-price">$${item.price * item.qty}</div>
         <div class="remove" onclick="removeItem(${index})">✕</div>
       </div>
     `);
   });
 
   $("#totalPrice").text(total);
-  $("#cartCount").text(cart.length);
+  $("#cartCount").text(count);
 }
 
+// ================= QTY =================
+function changeQty(index,change){
+  cart[index].qty += change;
+  if(cart[index].qty <= 0) cart.splice(index,1);
+  updateCart();
+}
 
+// ================= REMOVE =================
 function removeItem(index){
   cart.splice(index,1);
   updateCart();
 }
 
-// OPEN / CLOSE CART
-// OPEN CART
-$(document).on("click",".cart",function(){
-  $("#cartModal").fadeIn();
+// ================= OPEN / CLOSE CART =================
+$(document).on("click",".cart",()=>$("#cartModal").fadeIn());
+$(document).on("click","#closeCart",()=>$("#cartModal").fadeOut());
+$(document).on("click","#cartModal",()=>$("#cartModal").fadeOut());
+$(document).on("click",".cart-box",e=>e.stopPropagation());
+
+// ================= WHATSAPP ORDER =================
+$(document).on("click",".whatsapp",function(){
+
+  if(cart.length === 0){
+    alert("Your cart is empty 🛒");
+    return;
+  }
+
+  let message = "🛒 *New Order*%0A%0A";
+  let total = 0;
+
+  cart.forEach(item=>{
+    message += `• ${item.name}`;
+    if(item.size) message += ` (${item.size})`;
+    message += `%0A  Qty: ${item.qty}`;
+    message += `%0A  Price: $${item.price * item.qty}%0A%0A`;
+    total += item.price * item.qty;
+  });
+
+  message += `💰 Total: $${total}%0A%0A`;
+  message += `📍 Address:%0A`;
+
+  const phone = "96170565771";
+  window.open(`https://wa.me/${phone}?text=${message}`,"_blank");
 });
 
-// CLOSE CART (X)
-$(document).on("click","#closeCart",function(){
-  $("#cartModal").fadeOut();
-});
 
-// CLOSE WHEN CLICK OUTSIDE
-$(document).on("click","#cartModal",function(){
-  $("#cartModal").fadeOut();
-});
-
-// PREVENT CLOSE INSIDE BOX
-$(document).on("click",".cart-box",function(e){
-  e.stopPropagation();
-});
 
 // ===== BURGER MENU =====
 $("#burger").on("click",function(){
   $(".nav-links").toggleClass("active");
 });
+$(".nav-links a").on("click",function(){
+  $(".nav-links").removeClass("active");
+});
+
 document.querySelector(".contact-form").addEventListener("submit", e => {
   e.preventDefault();
   alert("Message sent successfully!");

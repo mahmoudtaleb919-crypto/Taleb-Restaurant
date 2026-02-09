@@ -1,38 +1,52 @@
-/* ===== MOBILE ===== */
-@media (max-width:768px){
+/* ===== MOBILE NAVBAR ===== */
+@media (max-width: 768px) {
 
-  .navbar .container{
-    flex-direction:row;
+  .navbar .container {
+    flex-wrap: wrap;
   }
 
-  .nav-links{
-    position:fixed;
-    top:70px;
-    left:-100%;
-    background:#111;
-    width:100%;
-    height:calc(100vh - 70px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    transition:.3s;
+  /* Hide nav links by default */
+  .nav-links {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    background: #111;
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  .nav-links a{
-    font-size:1.3rem;
-    margin:15px 0;
+  .nav-links a {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
   }
 
-  .nav-links.active{
-    left:0;
+  .nav-links a:last-child {
+    border-bottom: none;
   }
 
-  .burger{
-    display:block;
-    font-size:1.6rem;
-    cursor:pointer;
+  /* Burger visible */
+  .burger {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
   }
+
+  /* Actions spacing */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Show menu when active */
+  .nav-links.active {
+    display: flex;
+  }
+}
+
 
   .hero h2{
     font-size:2.2rem;
@@ -45,7 +59,6 @@
   .cart-box{
     width:90%;
   }
-}
 @media (max-width:768px){
   .hero{
     height:60vh;
