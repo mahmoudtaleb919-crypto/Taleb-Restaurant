@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taleb’s Restaurant | Digital Menu</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="Css/style.css" />
+  <link rel="stylesheet" href="Css/responsive.css" />
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo">Taleb’s<span>Restaurant</span></h1>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="burger" id="burger">☰</div>
+        <button id="themeToggle">🌙</button>
+        <div class="cart">
+          🛒 <span id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h2>World Class Taste</h2>
+      <p>Discover our digital menu and enjoy premium flavors</p>
+      <a href="#menu" class="btn">View Menu</a>
+    </div>
+  </section>
+
+  <!-- ===== MENU SECTION ===== -->
+  <section id="menu" class="menu-section">
+    <h2 class="section-title">Our Menu</h2>
+
+    <div class="menu-filters">
+      <button class="filter active" data-category="all">All</button>
+      <button class="filter" data-category="starters">Starters</button>
+      <button class="filter" data-category="main">Main</button>
+      <button class="filter" data-category="pizza">Pizza</button>
+      <button class="filter" data-category="drinks">Drinks</button>
+      <button class="filter" data-category="desserts">Desserts</button>
+    </div>
+
+    <div class="menu-items" id="menuItems">
+      <!-- items injected by JS -->
+    </div>
+  </section>
+  <section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-text">
+        <h2>About Our Restaurant</h2>
+        <p>
+          Welcome to <strong>Mahmoud’s Restaurant</strong>, where passion meets flavor.
+          Since 2024, we’ve been serving handcrafted meals made with fresh ingredients
+          and a lot of love.
+        </p>
+
+        <div class="about-stats">
+          <div>
+            <h3>10+</h3>
+            <span>Years Experience</span>
+          </div>
+          <div>
+            <h3>50+</h3>
+            <span>Dishes</span>
+          </div>
+          <div>
+            <h3>5K+</h3>
+            <span>Happy Clients</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-img">
+        <img src="Images/hero.jpeg" alt="Restaurant">
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="contact" id="contact">
+  <div class="container">
+
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <p>📍 Tripoli, Lebanon</p>
+        <p>📞 +961 70 565 771</p>
+        <p>✉️ info@mahmoudrestaurant.com</p>
+      </div>
+
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- CART MODAL -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <span id="closeCart">✕</span>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="total">
+        Total: $<span id="totalPrice">0</span>
+      </div>
+      <button class="btn checkout">Checkout</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2026 Taleb’s Restaurant | Designed by Mahmoud Taleb</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="Js/data.js"></script>
+  <script src="Js/main.js"></script>
+  <script src="Js/cart.js"></script>
+
+</body>
+</html>
