@@ -10,10 +10,15 @@
   color:#fff;
 }
 
-body{
-  background:#f8f8f8;
-  color:#222;
+body {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fff7ed 50%,
+    #ffffff 100%
+  );
 }
+
 
 .container{
   width:90%;
@@ -245,6 +250,17 @@ body.dark .btn {
   background:#f9ba60;
   color:#000;
 }
+/* ===== DARK MODE ABOUT SECTION ===== */
+body.dark .about {
+  background: #121212;
+}
+
+body.dark .about h2,
+body.dark .about p,
+body.dark .about span {
+  color: #f1f1f1;
+}
+
 /* ===== CART ===== */
 .cart-modal{
   position:fixed;

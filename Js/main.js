@@ -86,10 +86,10 @@ const menuData = [
   },
   {
     id:10,
-    name:"Caesar Salad",
+    name:"Salad",
     category:"starters",
     price:8,
-    desc:"Fresh lettuce with parmesan",
+    desc:"Salad Lebanon",
     img:"Images/salad.jpg"
   },
   {
