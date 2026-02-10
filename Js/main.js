@@ -130,7 +130,7 @@ function displayMenu(items){
           <button data-size="large">L</button>
         </div>
       `;
-      priceHTML = `<div class="price">$${item.sizes.medium}</div>`;
+      priceHTML = `<div class="price">$${item.sizes.small}</div>`;
     }else{
       priceHTML = `<div class="price">$${item.price}</div>`;
     }
