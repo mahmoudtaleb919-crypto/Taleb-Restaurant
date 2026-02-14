@@ -304,8 +304,17 @@ $(document).on("click",".whatsapp",function(){
     alert("Your cart is empty 🛒");
     return;
   }
+  const now = new Date();
+
+const date = now.toLocaleDateString("en-GB"); 
+const time = now.toLocaleTimeString("en-LB", { 
+  hour: '2-digit', 
+  minute: '2-digit' 
+});
 
   let message = "🛒 *New Order*%0A%0A";
+  message += `📅 Date: ${date}%0A`;
+  message += `⏰ Time: ${time}%0A%0A`;
   let total = 0;
 
   cart.forEach(item=>{
